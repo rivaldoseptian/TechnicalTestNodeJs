@@ -33,6 +33,19 @@ class TaskController {
       next(error);
     }
   }
+
+  static async UpdateCompleted(req, res, next) {
+    try {
+      const id = req.params.id;
+      if (!id) throw { name: "Task Not Found" };
+      const { completed } = req.body;
+      const task = await Task.update({ completed }, { where: { id } });
+      if (!task) throw { name: "Task Not Found" };
+      res.status(200).json({ message: "Success Update Tasks" });
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 module.exports = TaskController;
