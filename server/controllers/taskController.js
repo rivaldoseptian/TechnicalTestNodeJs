@@ -39,9 +39,23 @@ class TaskController {
       const id = req.params.id;
       if (!id) throw { name: "Task Not Found" };
       const { completed } = req.body;
-      const task = await Task.update({ completed }, { where: { id } });
+      const task = await Task.findByPk(id);
       if (!task) throw { name: "Task Not Found" };
+      await Task.update({ completed }, { where: { id } });
       res.status(200).json({ message: "Success Update Tasks" });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async DeleteTask(req, res, next) {
+    try {
+      const id = req.params.id;
+      if (!id) throw { name: "Task Not Found" };
+      const task = await Task.findByPk(id);
+      if (!task) throw { name: "Task Not Found" };
+      await Task.destroy({ where: { id } });
+      res.status(200).json({ message: "Success Delete Task" });
     } catch (error) {
       next(error);
     }
