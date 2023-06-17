@@ -1,5 +1,14 @@
 # Task API Documentaion
 
+## Run LocalHost:
+
+- npm run dev
+
+## Run Unit Test:
+
+- npm run rest-db
+- npm run test
+
 ## EndPoints :
 
 - `POST /auth/register`
